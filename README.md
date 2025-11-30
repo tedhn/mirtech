@@ -107,3 +107,11 @@ To stop and remove the containers, network, and intermediate build artifacts:
 ```bash
 docker compose down
 ```
+
+## 🔮 Future Improvements (Reflection)
+
+Given more time and scope, the two primary areas for improvement would be dedicated to optimizing the backend: enhanced security and superior performance.
+
+1. Enhanced Security and Auth: I would prioritize implementing proper authentication and user roles into the FastAPI service. This means integrating with Supabase's built-in Auth system (JWTs) and replacing the current SUPABASE_SERVICE_KEY approach with user-specific tokens. Middleware would be added to protect every API route, ensuring data access is personalized and secure.
+
+2. Superior Backend Performance (Query Optimization & Caching): I would focus heavily on improving overall API latency and query speed. This involves two steps: first, deep query optimization within the FastAPI service to ensure the most efficient database interactions with Supabase, specifically targeting complex filter/join operations. Second, I would introduce a robust backend caching layer using a service like Redis, integrated via Docker Compose. Caching frequently accessed, static, or slow-to-generate data at the FastAPI level would significantly reduce the load on the PostgreSQL database and drastically improve API throughput and query speed.
