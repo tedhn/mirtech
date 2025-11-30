@@ -1,0 +1,49 @@
+# File: mirtech/docker-compose.yml
+version: "3.8"
+
+services:
+  # 1. FastAPI Backend Service
+  backend:
+    build:
+      context: ./be # Build context is the 'be' folder
+    container_name: mirtech_backend
+    # Use uvicorn with hot-reload for development
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000" # Host:Container Port Mapping
+    volumes:
+      # Mount the 'be' folder for live code changes
+      - ./be:/app
+    # Assumes your Supabase credentials are in a .env file in the root 'mirtech/' folder
+    env_file:
+      - ./.env
+    networks:
+      - mirtech_network
+
+  # 2. Next.js Frontend Service
+  frontend:
+    build:
+      context: ./fe # Build context is the 'fe' folder
+    container_name: mirtech_frontend
+    # Use the Next.js development command for HMR
+    command: npm run dev
+    ports:
+      - "3000:3000" # Host:Container Port Mapping
+    volumes:
+      # Mount the 'fe' folder for live code changes
+      - ./fe:/app
+      # Anonymous volume to avoid mounting host node_modules, ensuring
+      # dependencies installed in the Docker image are used.
+      - /app/node_modules
+    env_file:
+      - ./.env
+    networks:
+      - mirtech_network
+    # Next.js often fetches data from the backend during development/SSR
+    depends_on:
+      - backend
+
+# Define the custom network
+networks:
+  mirtech_network:
+    driver: bridge
