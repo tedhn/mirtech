@@ -42,11 +42,11 @@ docker compose up --build
 
 Once the containers are successfully running, you can access the application through your web browser:
 
-| Service                | Access URL                                                                               | Port Mapping                                   |
-| :--------------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------- |
-| **Frontend (Next.js)** | [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000)           | `3000` (Host) $\rightarrow$ `3000` (Container) |
-| **Backend (FastAPI)**  | [http://localhost:8000](https://www.google.com/search?q=http://localhost:8000)           | `8000` (Host) $\rightarrow$ `8000` (Container) |
-| **Backend Docs**       | [http://localhost:8000/docs](https://www.google.com/search?q=http://localhost:8000/docs) |                                                |
+| Service                | Access URL                                               | Port Mapping                                   |
+| :--------------------- | :------------------------------------------------------- | :--------------------------------------------- |
+| **Frontend (Next.js)** | [http://localhost:3000](http://localhost:3000)           | `3000` (Host) $\rightarrow$ `3000` (Container) |
+| **Backend (FastAPI)**  | [http://localhost:8000](http://localhost:8000)           | `8000` (Host) $\rightarrow$ `8000` (Container) |
+| **Backend Docs**       | [http://localhost:8000/docs](http://localhost:8000/docs) |                                                |
 
 ---
 
@@ -68,19 +68,19 @@ The backend is responsible for all secure data operations.
 
 ### Key Files
 
-- [`be/app/main.py`](https://www.google.com/search?q=be/app/main.py): Initializes the FastAPI app, configures **CORS middleware**, and defines all API endpoints.
-- [`be/app/models.py`](https://www.google.com/search?q=be/app/models.py): Contains all Pydantic schemas for request validation and response shaping.
-- [`be/app/helper.py`](https://www.google.com/search?q=be/app/helper.py): Contains utility logic, such as `build_filtered_query` for constructing dynamic Supabase queries based on URL parameters.
+- [`be/app/main.py`](https://github.com/tedhn/mirtech/blob/main/be/app/main.py): Initializes the FastAPI app, configures **CORS middleware**, and defines all API endpoints.
+- [`be/app/models.py`](https://github.com/tedhn/mirtech/blob/main/be/app/models.py): Contains all Pydantic schemas for request validation and response shaping.
+- [`be/app/helper.py`](https://github.com/tedhn/mirtech/blob/main/be/app/helper.py): Contains utility logic, such as `build_filtered_query` for constructing dynamic Supabase queries based on URL parameters.
 
 ### API Endpoints (Core User Routes)
 
-| Method   | Path          | Function         | Description                                       |                                                                    |
-| :------- | :------------ | :--------------- | :------------------------------------------------ | :----------------------------------------------------------------- |
-| `GET`    | `/users`      | `get_users`      | Retrieves a paginated and filtered list of users. | [`be/app/main.py`](https://www.google.com/search?q=be/app/main.py) |
-| `GET`    | `/users/{id}` | `get_user_by_id` | Retrieves a single user by ID.                    | [`be/app/main.py`](https://www.google.com/search?q=be/app/main.py) |
-| `POST`   | `/users`      | `create_user`    | Creates a new user record.                        | [`be/app/main.py`](https://www.google.com/search?q=be/app/main.py) |
-| `PATCH`  | `/users/{id}` | `update_user`    | Partially updates a user record.                  | [`be/app/main.py`](https://www.google.com/search?q=be/app/main.py) |
-| `DELETE` | `/users/{id}` | `delete_user`    | Deletes a user record.                            | [`be/app/main.py`](https://www.google.com/search?q=be/app/main.py) |
+| Method   | Path          | Function         | Description                                       |                                                                                |
+| :------- | :------------ | :--------------- | :------------------------------------------------ | :----------------------------------------------------------------------------- |
+| `GET`    | `/users`      | `get_users`      | Retrieves a paginated and filtered list of users. | [`be/app/main.py`](https://github.com/tedhn/mirtech/blob/main/be/app/main.py)  |
+| `GET`    | `/users/{id}` | `get_user_by_id` | Retrieves a single user by ID.                    | [`be/app/main.py`](https://github.com/tedhn/mirtech/blob/main/be/app/main.pyy) |
+| `POST`   | `/users`      | `create_user`    | Creates a new user record.                        | [`be/app/main.py`](https://github.com/tedhn/mirtech/blob/main/be/app/main.py)  |
+| `PATCH`  | `/users/{id}` | `update_user`    | Partially updates a user record.                  | [`be/app/main.py`](https://github.com/tedhn/mirtech/blob/main/be/app/main.py)  |
+| `DELETE` | `/users/{id}` | `delete_user`    | Deletes a user record.                            | [`be/app/main.py`](https://github.com/tedhn/mirtech/blob/main/be/app/main.py)  |
 
 ---
 
@@ -90,9 +90,9 @@ The frontend is a standard Next.js application configured for fast development u
 
 ### Key Files
 
-- [`fe/Dockerfile`](https://www.google.com/search?q=fe/Dockerfile): Defines the build process, including the installation of **Bun**.
-- [`fe/package.json`](https://www.google.com/search?q=fe/package.json) / `bun.lockb`: Dependency manifest.
-- [`fe/`](https://www.google.com/search?q=fe/): Contains all Next.js source files, pages, and components.
+- [`fe/Dockerfile`](https://github.com/tedhn/mirtech/blob/main/fe/Dockerfile): Defines the build process, including the installation of **Bun**.
+- [`fe/package.json`](https://github.com/tedhn/mirtech/blob/main/fe/package.json) / `bun.lockb`: Dependency manifest.
+- [`fe/`](https://github.com/tedhn/mirtech/blob/main/fe): Contains all Next.js source files, pages, and components.
 
 ### Development Workflow
 
@@ -107,6 +107,25 @@ To stop and remove the containers, network, and intermediate build artifacts:
 ```bash
 docker compose down
 ```
+
+## Why Supabase?
+
+Supabase was chosen because it provides a modern, SQL-native backend that accelerates development while keeping the architecture simple, reliable, and scalable. The following reasons highlight why it was the ideal choice for this project:
+
+1. Fully Managed PostgreSQL (Zero Setup)
+   Supabase offers a production-ready Postgres database with migrations, schemas, triggers, and extensions enabled by default. This allowed me to focus entirely on application logic rather than configuring or maintaining database infrastructure.
+
+2. Auto-Generated REST/Realtime APIs
+   Every database table automatically exposes a powerful PostgREST API with advanced filters, pagination, and relational queries. This eliminated a lot of boilerplate backend code and significantly sped up development.
+
+3. Integrated Auth + Row-Level Security
+   Supabase Auth integrates tightly with Postgres and respects RLS policies, making it easy to build secure access rules right from the database layer. This is much more robust than manually building token middleware or custom ACL logic.
+
+4. Realtime Subscription Support
+   Supabase offers realtime updates powered by replication slots. Without needing to deploy WebSockets or external services, the app can react immediately to changes in the database—ideal for dashboards or rapidly updating UIs.
+
+5. Excellent Developer Experience (DX)
+   The Supabase CLI provides a smooth local development environment with commands for migrations, DB seeding, type generation, and running Auth/Storage locally. This made the development cycle extremely efficient.
 
 ## ⚡ Performance Optimization Techniques
 
