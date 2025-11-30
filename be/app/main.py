@@ -3,18 +3,17 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from supabase import Client, create_client
 from dotenv import load_dotenv
-from models import  Address, UserDeleteResponse, UserResponse , UserCreateRequest, UserCreateResponse, UserResponseById, UserUpdateRequest, UserUpdateResponse
+from .models import Address, UserDeleteResponse, UserResponse, UserCreateRequest, UserCreateResponse, UserResponseById, UserUpdateRequest, UserUpdateResponse
 from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
 
-from helper import build_filtered_query
+from .helper import build_filtered_query
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Add the /api prefix to all routes
-app = FastAPI(root_path="/api")
+app = FastAPI()
 
 # Configure CORS
 app.add_middleware(

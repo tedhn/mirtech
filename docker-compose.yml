@@ -26,7 +26,7 @@ services:
       context: ./fe # Build context is the 'fe' folder
     container_name: mirtech_frontend
     # Use the Next.js development command for HMR
-    command: npm run dev
+    command: bun run dev
     ports:
       - "3000:3000" # Host:Container Port Mapping
     volumes:
