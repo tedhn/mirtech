@@ -108,6 +108,24 @@ To stop and remove the containers, network, and intermediate build artifacts:
 docker compose down
 ```
 
+## ⚡ Performance Optimization Techniques
+
+Several techniques were employed to ensure fast compilation, low latency, and a quick developer feedback loop:
+
+1. Bun Runtime: Using Bun dramatically speeds up dependency installation (bun install is faster than npm install) and script execution, which reduces overall Docker build and startup times.
+
+2. Frontend Data Management (Tanstack Query): Client-side performance is heavily optimized using React Tanstack Query for data fetching. This library automatically handles powerful features like data caching, stale-while-revalidate logic, and request debouncing to minimize unnecessary network calls to the backend and improve UI responsiveness.
+
+## 🎨 UI/UX Considerations
+
+The user experience was prioritized with responsiveness and predictability:
+
+Responsive Design: Using a utility-first CSS framework (e.g., Tailwind CSS, if adopted) or modern CSS ensures the application is fully responsive and usable across mobile, tablet, and desktop viewports.
+
+Predictable Interactions: All forms and inputs are validated client-side where possible, and server responses (from FastAPI) use consistent Pydantic models, which ensures the UI always receives predictable, typed data, minimizing unexpected rendering issues.
+
+Clear State Feedback: When creating, updating, or deleting resources, the UI should display clear loading states and success/error messages to manage user expectations during network latency.
+
 ## 🔮 Future Improvements (Reflection)
 
 Given more time and scope, the two primary areas for improvement would be dedicated to optimizing the backend: enhanced security and superior performance.

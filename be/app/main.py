@@ -57,10 +57,11 @@ async def get_users(
         # --- Get Paginated Data (with filters applied) ---
         data_query = build_filtered_query(supabase, active, gender, filter, "*", include_count=False)
         
+        
         # Calculate offset and apply range for pagination
         offset = (page - 1) * page_size
         response = data_query.range(offset, offset + page_size - 1).execute()
-        
+
         # Transform the data using UserResponse model
         transformed_users = []
         for user in response.data:
